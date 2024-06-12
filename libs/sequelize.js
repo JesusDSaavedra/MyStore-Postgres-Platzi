@@ -8,9 +8,13 @@ const PASSWORD = encodeURIComponent(config.dbPassword);
 const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
 // const URI = `mysql://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
 
+// const options = {
+//   dialect: 'postgres',
+//   logging: true,
+// };
 const options = {
-  dialect: 'postgres',
-  logging: true,
+  dialect: config.dbEngine,
+  logging: config.isProd ? false : console.log,
 };
 
 if (config.isProd) {
