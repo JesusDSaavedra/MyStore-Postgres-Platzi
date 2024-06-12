@@ -8,11 +8,16 @@ const PASSWORD = encodeURIComponent(config.dbPassword);
 const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
 // const URI = `mysql://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
 
-const sequelize = new Sequelize(URI, {
-  // dialect: 'mysql',
+const options = {
   dialect: 'postgres',
   logging: true,
-});
+};
+
+if (config.isProd) {
+  options.dialectModule = require('pg');
+}
+// const sequelize = new Sequelize(URI, options);
+const sequelize = new Sequelize(config.dbUrl, options);
 
 setupModels(sequelize);
 
