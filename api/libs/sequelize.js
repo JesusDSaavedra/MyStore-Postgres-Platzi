@@ -14,6 +14,7 @@ if (config.isProd) {
       rejectUnauthorized: false,
     },
   };
+  options.dialectModule = require('pg');
 }
 
 const sequelize = new Sequelize(config.dbUrl, options);
